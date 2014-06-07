@@ -23,26 +23,24 @@ namespace WikipediaLoader
 
         static void Main(string[] args)
         {
-            StreamProcesing(@"C:\Users\theupel\Downloads\wikipedia\enwiki-20140502-pages-articles-multistream.xml");
+            EntireProcessStopwatch.Start();
+
+            ProcessWikipediaFile(@"C:\Users\theupel\Downloads\wikipedia\enwiki-20140502-pages-articles-multistream.xml");
+
+            EntireProcessStopwatch.Stop();
+            Console.WriteLine("Entire file time elapsed: {0}", EntireProcessStopwatch.Elapsed);
         }
 
-        static void StreamProcesing(string filename)
+        static void ProcessWikipediaFile(string filename)
         {
             using (FileStream file = new FileStream(filename, FileMode.OpenOrCreate))
             {
                 using (BufferedStream stream = new BufferedStream(file))
                 {
-                    EntireProcessStopwatch.Start();
-
-                    string pathToCurrentBucket = String.Format(PATH_TO_BUCKET_FORMAT, CurrentBucket);
-
                     var pageProcessor = new PageXmlToJsonProcessor();
                     pageProcessor.PageProcessed += Program.pageProcessor_PageProcessed;
                     var processor = new WikipediaXmlProcessor(stream, pageProcessor);
                     processor.ProcessPages();
-
-                    EntireProcessStopwatch.Stop();
-                    Console.WriteLine("Entire file time elapsed: {0}", EntireProcessStopwatch.Elapsed);
                 }
             }
         }

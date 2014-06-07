@@ -32,7 +32,7 @@ namespace WikipediaLoader
                     case XmlNodeType.Element:
                         if (reader.Name == "page")
                         {
-                           PageProcessor.ProcessPage(reader.ReadOuterXml());
+                            PageProcessor.ProcessPage(reader.ReadOuterXml());
                         }
                         break;
 
@@ -41,12 +41,6 @@ namespace WikipediaLoader
                         break;
                 }
             }
-        }
-
-        public void ProcessPages(long maxPagesToProcess)
-        {
-            // TODO: Move logic here, wire in pageProcessed event listener and kill the loop
-            // when the count is too high
         }
     }
 }
