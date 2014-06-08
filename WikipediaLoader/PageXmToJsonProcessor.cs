@@ -13,6 +13,8 @@ namespace WikipediaLoader
         public event PageProcessedEventHandler PageProcessed;
         public void ProcessPage(string page)
         {
+            if (page == null) throw new ArgumentNullException("page");
+
             string pageAsJsonString = ConvertPageXmlStringToJsonString(page);
 
             if (PageProcessed != null) PageProcessed(new PageProcessedEventArgs(pageAsJsonString));

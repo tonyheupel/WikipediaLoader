@@ -13,6 +13,7 @@ namespace WikipediaLoader
         public WikipediaXmlProcessor(Stream inputStream, IPageProcessor pageProcessor)
         {
             if (inputStream == null) throw new ArgumentNullException("inputStream");
+            if (pageProcessor == null) throw new ArgumentNullException("pageProcessor");
 
             this.InputStream = inputStream;
             this.PageProcessor = pageProcessor;
